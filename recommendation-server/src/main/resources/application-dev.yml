@@ -1,0 +1,7 @@
+# 开发环境配置：仅用于本地开发。
+# 数据库/Redis 密码统一在 application.yml 中通过环境变量注入（含本地默认值），此处不再覆盖。
+
+# 开发环境打印 SQL，便于调试
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

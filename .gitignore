@@ -1,0 +1,32 @@
+# ===== Maven =====
+target/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# ===== Node / 前端构建产物 =====
+node_modules/
+frontend/dist/
+frontend/node_modules/
+
+# ===== IDE =====
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# ===== 环境变量与密钥 =====
+.env
+.env.*
+!.env.example
+*.jks
+*.p12
+*.pem
+
+# ===== 日志与临时文件 =====
+*.log
+logs/
+.DS_Store
+Thumbs.db

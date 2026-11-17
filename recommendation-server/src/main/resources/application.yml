@@ -1,0 +1,96 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: recommendation-system
+  # 默认激活 dev profile；生产通过环境变量 SPRING_PROFILES_ACTIVE=prod 覆盖
+  profiles:
+    default: dev
+
+  # 数据源配置（敏感项走环境变量，开发默认值见 application-dev.yml）
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/recommendation_system?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:你的密码}
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+
+  # Redis配置
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:你的密码}
+      database: ${REDIS_DATABASE:8}
+      timeout: 3000
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1
+          max-idle: 8
+          min-idle: 0
+
+  # Jackson配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+# MyBatis配置（SQL 日志只在 dev profile 开启，见 application-dev.yml）
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.recommendation.pojo.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+# JWT配置
+jwt:
+  secret: ${JWT_SECRET:recommendation-system-jwt-secret-key-2024}
+  expiration: 604800
+  token-prefix: "Bearer "
+  header-name: Authorization
+
+# Knife4j配置
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+  production: false
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+# AI导购配置
+ai:
+  llm:
+    provider: deepseek
+    base-url: ${DEEPSEEK_BASE_URL:https://api.deepseek.com}
+    api-key: ${DEEPSEEK_API_KEY:你的APIKEY}
+    model: ${DEEPSEEK_MODEL:deepseek-flash}
+    max-tokens: 2048
+    temperature: 0.7
+    timeout: 60
+  # RAG 检索：Qdrant 向量库 + 百炼 embedding
+  rag:
+    enabled: true
+    collection: products
+    dimension: 1024
+    embedding-batch-size: 10
+    embedding-model: text-embedding-v3
+    embedding-api-key: ${DASHSCOPE_API_KEY:你的APIKEY}
+    qdrant-host: 192.168.100.101(替换成你的地址)
+    qdrant-port: 6333

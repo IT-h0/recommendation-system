@@ -1,0 +1,18 @@
+# 生产环境配置：通过 SPRING_PROFILES_ACTIVE=prod 激活。
+# 数据库/Redis/AI 等敏感项必须通过环境变量注入（见 .env.example），此处不提供默认值。
+spring:
+  datasource:
+    password: ${DB_PASSWORD}
+  data:
+    redis:
+      password: ${REDIS_PASSWORD}
+
+knife4j:
+  enable: false
+  production: true
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false

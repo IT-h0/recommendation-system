@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn dependency:resolve -pl recommendation-server -q)",
+      "Bash(rmdir \"D:\\\\develop\\\\Code\\\\recommendation-system\\\\recommendation-server\\\\src\\\\main\\\\java\\\\com\\\\recommendation\\\\server\\\\ai\\\\client\" \"D:\\\\develop\\\\Code\\\\recommendation-system\\\\recommendation-server\\\\src\\\\main\\\\java\\\\com\\\\recommendation\\\\server\\\\ai\\\\function\" \"D:\\\\develop\\\\Code\\\\recommendation-system\\\\recommendation-server\\\\src\\\\main\\\\java\\\\com\\\\recommendation\\\\server\\\\ai\\\\model\")",
+      "Bash(mkdir -p \"D:\\\\develop\\\\Code\\\\recommendation-system\\\\recommendation-server\\\\src\\\\main\\\\java\\\\com\\\\recommendation\\\\server\\\\ai\\\\config\" \"D:\\\\develop\\\\Code\\\\recommendation-system\\\\recommendation-server\\\\src\\\\main\\\\java\\\\com\\\\recommendation\\\\server\\\\ai\\\\tool\")",
+      "Bash(mvn compile *)",
+      "Bash(mvn dependency:tree -pl recommendation-server -q)",
+      "Bash(mvn dependency:tree -pl recommendation-server)",
+      "Bash(mvn dependency:copy -Dartifact=dev.langchain4j:langchain4j-core:1.0.0-beta2 -DoutputDirectory=target/deps -q)",
+      "Bash(jar tf *)",
+      "Bash(javap -cp target/deps/langchain4j-core-1.0.0-beta2.jar dev.langchain4j.model.StreamingResponseHandler)",
+      "Bash(mvn dependency:copy -Dartifact=dev.langchain4j:langchain4j-open-ai:1.0.0-beta2 -DoutputDirectory=target/deps -q)",
+      "Bash(javap -cp \"target/deps/langchain4j-core-1.0.0-beta2.jar;target/deps/langchain4j-open-ai-1.0.0-beta2.jar\" dev.langchain4j.model.openai.OpenAiStreamingChatModel)"
+    ]
+  }
+}
