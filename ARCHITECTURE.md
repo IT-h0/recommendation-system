@@ -95,7 +95,7 @@ sequenceDiagram
 ## 三、关键设计点
 
 1. **手写工具调用循环**（而非 AiServices）：为了拿到工具返回的商品数据、单独推 `product` SSE 事件。
-2. **同步 + 流式双模型**：工具循环用同步模型（需同步拿 tool_calls 结果），最终回答用流式模型（逐 token）。
+2. **同步 + 流式双模型**：工具循环用自研 `DeepSeekClient`（原生 HTTP 标准 `tools` 协议，返回标准 JSON `tool_calls`，根除 DSML 兼容问题），最终回答用 LangChain4j 流式模型（逐 token）。
 3. **混合检索**：向量（语义）+ 关键词（字面）+ 结构化过滤 + RRF 重排。
 4. **失败降级**：向量检索不可用时自动回退关键词/全库，AI 导购整体不中断。
 5. **上下文控制**：商品目录按「分类 Top3」压缩进 system prompt，历史只保留最近 20 条。
